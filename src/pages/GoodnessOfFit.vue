@@ -1,8 +1,8 @@
 <template>
-  <q-page padding>
+  <q-page>
     <q-tabs
       v-model="activeTab"
-      dense align="justify"
+      align="justify"
       active-color="primary" indicator-color="primary" class="text-grey"
     >
       <q-tab
@@ -49,11 +49,11 @@
         data: normalDataSeries as IData[],
       }, {
         id: '4chan-norm',
-        name: 'Exponential',
+        name: 'Exponencial',
         data: exponentialDataSeries as IData[],
       }, {
         id: '4chan-unif',
-        name: 'Uniform',
+        name: 'Uniforme',
         data: uniformDataSeries as IData[],
       }],
     });

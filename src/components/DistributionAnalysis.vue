@@ -1,9 +1,8 @@
 <template>
   <q-page padding>
-    <div class="row">
+    <div class="row q-col-gutter-xl">
       <div class="col-xs-12 col-md-8">
         <bar-chart :data="chartData" :options="chartOptions" />
-        <!-- {{ name }}{{ min + ', ' + max + ', ' + mean + ', ' + variance + ', ' + std }} -->
       </div>
 
       <div class="col-xs-12 col-md-4">
@@ -27,6 +26,18 @@
     </div>
   </q-page>
 </template>
+
+<style lang="scss" scoped>
+  .q-list {
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+
+   .q-item {
+     flex-grow: 1;
+   }
+ }
+</style>
 
 <script lang="ts">
   import { defineComponent, reactive, toRefs, PropType } from '@vue/composition-api';
@@ -176,7 +187,7 @@
       state.observedProbabilities = observedFrequencies.map((f) => f / n);
 
       state.probabilityDistributions = [{
-        name: 'Uniform',
+        name: 'Uniforme',
         expectedProbabilities: uniformProbabilities,
         expectedFrequencies: uniformProbabilities.map((p) => p * n),
       }, {
@@ -184,7 +195,7 @@
         expectedProbabilities: normalProbabilities,
         expectedFrequencies: normalProbabilities.map((p) => p * n),
       }, {
-        name: 'Exponential',
+        name: 'Exponencial',
         expectedProbabilities: exponentialProbabilities,
         expectedFrequencies: exponentialProbabilities.map((p) => p * n),
       }] as IProbabilityDistribution[];

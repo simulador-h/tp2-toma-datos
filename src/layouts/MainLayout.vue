@@ -8,9 +8,6 @@
         />
 
         <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
-          </q-avatar>
           Simulador H - TP2
         </q-toolbar-title>
       </q-toolbar>
@@ -52,7 +49,7 @@
         icon: 'home',
         path: '/',
       }, {
-        name: 'Goodness of Fit',
+        name: 'Pruebas de Bondad',
         icon: 'school',
         path: '/goodness-of-fit',
       }],
