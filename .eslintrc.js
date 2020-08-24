@@ -1,4 +1,5 @@
 const { resolve } = require('path');
+
 module.exports = {
   // https://eslint.org/docs/user-guide/configuring#configuration-cascading-and-hierarchy
   // This option interrupts the configuration hierarchy at this file
@@ -38,9 +39,9 @@ module.exports = {
     // Uncomment any of the lines below to choose desired strictness,
     // but leave only one uncommented!
     // See https://eslint.vuejs.org/rules/#available-rules
-    'plugin:vue/essential', // Priority A: Essential (Error Prevention)
+    // 'plugin:vue/essential', // Priority A: Essential (Error Prevention)
     // 'plugin:vue/strongly-recommended', // Priority B: Strongly Recommended (Improving Readability)
-    // 'plugin:vue/recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
+    'plugin:vue/recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
 
     'airbnb-base'
 
@@ -68,6 +69,11 @@ module.exports = {
   // add your custom rules here
   rules: {
     'no-param-reassign': 'off',
+    'no-confusing-arrow': ['error', {
+      allowParens: true,
+    }],
+    'no-plusplus': ['error', { "allowForLoopAfterthoughts": true }],
+    'object-curly-newline': 'warn',
 
     'import/first': 'off',
     'import/named': 'error',
@@ -80,12 +86,27 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'prefer-promise-reject-errors': 'off',
 
+    'max-len': ['error', 125],
+
     // TypeScript
     'quotes': ['warn', 'single', { avoidEscape: true }],
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
 
     // allow debugger during development only
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
-  }
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+
+    "vue/script-indent": ["error", 2, { "baseIndent": 1 }],
+    'vue/max-attributes-per-line': 'off',
+    'vue/multiline-html-element-content-newline': 'off'
+  },
+
+  overrides: [
+    {
+      files: ['*.vue'],
+      rules: {
+        'indent': 'off'
+      }
+    }
+  ]
 }

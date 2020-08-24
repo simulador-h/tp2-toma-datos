@@ -1,109 +1,71 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+  <q-layout view="hhh lpR fFf">
+    <!-- master header -->
+    <q-header class="bg-primary text-white">
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
+        <q-btn icon="menu" flat dense round
+               @click="drawerVisible = !drawerVisible"
         />
 
         <q-toolbar-title>
-          Quasar App
+          <q-avatar>
+            <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
+          </q-avatar>
+          Simulador H - TP2
         </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      content-class="bg-grey-1"
+    <q-drawer v-model="drawerVisible" :mini="!drawerVisible || drawerMinimized"
+              behavior="desktop"
+              mini-to-overlay bordered
+              @mouseenter="drawerMinimized = false"
+              @mouseleave="drawerMinimized = true"
     >
-      <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
-          Essential Links
-        </q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
+      <q-scroll-area class="fit">
+        <q-list padding>
+          <drawer-link v-for="link in drawerLinks" :key="link.name"
+                       :link="link"
+          />
+        </q-list>
+      </q-scroll-area>
     </q-drawer>
 
     <q-page-container>
       <router-view />
     </q-page-container>
+
   </q-layout>
 </template>
 
 <script lang="ts">
-import EssentialLink from 'components/EssentialLink.vue';
+  import { defineComponent, reactive, toRefs } from '@vue/composition-api';
 
-const linksData = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev',
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework',
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev',
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev',
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev',
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev',
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev',
-  },
-];
+  import DrawerLink from 'components/DrawerLink.vue';
 
-import { defineComponent, ref } from '@vue/composition-api';
+  function useMainLayout() {
+    const state = reactive({
+      drawerVisible: true,
+      drawerMinimized: true,
+      drawerLinks: [{
+        name: 'Home',
+        icon: 'home',
+        path: '/',
+      }, {
+        name: 'Goodness of Fit',
+        icon: 'school',
+        path: '/goodness-of-fit',
+      }],
+    });
 
-export default defineComponent({
-  name: 'MainLayout',
-  components: { EssentialLink },
-  setup() {
-    const leftDrawerOpen = ref(false);
-    const essentialLinks = ref(linksData);
+    return toRefs(state);
+  }
 
-    return { leftDrawerOpen, essentialLinks };
-  },
-});
+  export default defineComponent({
+    name: 'MainLayout',
+    components: { DrawerLink },
+    setup() {
+      return useMainLayout();
+    },
+  });
 </script>

@@ -6,11 +6,11 @@ const routes: RouteConfig[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue') },
+      { path: '/goodness-of-fit', component: () => import('pages/GoodnessOfFit.vue') },
     ],
   },
 
-  // Always leave this as last one,
-  // but you can also remove it
+  // Always leave last
   {
     path: '*',
     component: () => import('pages/Error404.vue'),
